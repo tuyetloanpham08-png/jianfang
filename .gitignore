@@ -1,0 +1,21 @@
+.DS_Store
+.build/
+.build-release/
+.swiftpm/
+dist/
+build-logs/
+exports/
+evidence/
+docs/
+ci/baselines/
+fixtures/*validation.json
+fixtures/manifest.json
+fixtures/media/* 2.*
+fixtures/media/
+Tests/Fixtures/media/
+*.p12
+*.p8
+*.pem
+*.key
+.env
+.env.*

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "name": "F5 rotation metadata 90 degrees",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "durationFrames": 60,
+  "assets": [
+    {
+      "id": "rotated24",
+      "path": "media/barcode-cfr24-rotate90.mp4",
+      "kind": "video"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "rotation-metadata",
+      "assetID": "rotated24",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 60,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [],
+  "subtitles": []
+}

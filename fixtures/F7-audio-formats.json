@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "name": "F7 mono 44.1kHz WAV and AAC to stereo 48kHz",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 90,
+  "assets": [
+    {
+      "id": "square",
+      "path": "media/offset-white-square.png",
+      "kind": "image"
+    },
+    {
+      "id": "wav441",
+      "path": "media/mono44100-660hz.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "aac441",
+      "path": "media/mono44100-660hz.m4a",
+      "kind": "audio"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "static-marker",
+      "assetID": "square",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0.25,
+        "y": 0.25,
+        "width": 0.5,
+        "height": 0.5
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [
+    {
+      "id": "wav-half",
+      "assetID": "wav441",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 45,
+      "gain": 0.5,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "aac-half",
+      "assetID": "aac441",
+      "track": 0,
+      "startFrame": 45,
+      "sourceStartFrame": 0,
+      "durationFrames": 45,
+      "gain": 0.5,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    }
+  ],
+  "subtitles": []
+}

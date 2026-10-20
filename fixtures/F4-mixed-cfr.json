@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "name": "F4 mixed CFR 24 and 25 - exact floor oracle",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 120,
+  "assets": [
+    {
+      "id": "barcode24",
+      "path": "media/barcode-cfr24.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "barcode25",
+      "path": "media/barcode-cfr25.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "tone3",
+      "path": "media/tone03.wav",
+      "kind": "audio"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "cfr24-segment",
+      "assetID": "barcode24",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 1,
+      "durationFrames": 60,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "cfr25-segment",
+      "assetID": "barcode25",
+      "track": 0,
+      "startFrame": 60,
+      "sourceStartFrame": 2,
+      "durationFrames": 60,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [
+    {
+      "id": "f4-tone",
+      "assetID": "tone3",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 120,
+      "gain": 0.5,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    }
+  ],
+  "subtitles": []
+}

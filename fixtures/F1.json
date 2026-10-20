@@ -1,0 +1,1469 @@
+{
+  "schemaVersion": 1,
+  "name": "F1",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 1800,
+  "assets": [
+    {
+      "id": "video1",
+      "path": "media/source01.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "video2",
+      "path": "media/source02.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "video3",
+      "path": "media/source03.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "audio1",
+      "path": "media/tone01.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio2",
+      "path": "media/tone02.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio3",
+      "path": "media/tone03.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio4",
+      "path": "media/tone04.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "chartPNG",
+      "path": "media/srgb-chart.png",
+      "kind": "image"
+    },
+    {
+      "id": "chartJPEG",
+      "path": "media/srgb-chart.jpg",
+      "kind": "image"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "main-01",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-02",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 90,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-03",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 180,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-04",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 270,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-05",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 360,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-06",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 450,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-07",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 540,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-08",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 630,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-09",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 720,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-10",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 810,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-11",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 900,
+      "sourceStartFrame": 300,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-12",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 990,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-13",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 1080,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-14",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 1170,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-15",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 1260,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-16",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 1350,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-17",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 1440,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-18",
+      "assetID": "video3",
+      "track": 0,
+      "startFrame": 1530,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-19",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 1620,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "main-20",
+      "assetID": "video2",
+      "track": 0,
+      "startFrame": 1710,
+      "sourceStartFrame": 510,
+      "durationFrames": 90,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "png-overlay",
+      "assetID": "chartPNG",
+      "track": 1,
+      "startFrame": 120,
+      "sourceStartFrame": 0,
+      "durationFrames": 120,
+      "rect": {
+        "x": 0.05,
+        "y": 0.1,
+        "width": 0.9,
+        "height": 0.7
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "jpeg-overlay",
+      "assetID": "chartJPEG",
+      "track": 1,
+      "startFrame": 720,
+      "sourceStartFrame": 0,
+      "durationFrames": 120,
+      "rect": {
+        "x": 0.05,
+        "y": 0.1,
+        "width": 0.9,
+        "height": 0.7
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "pip-video",
+      "assetID": "video2",
+      "track": 1,
+      "startFrame": 360,
+      "sourceStartFrame": 150,
+      "durationFrames": 120,
+      "rect": {
+        "x": 0.57,
+        "y": 0.12,
+        "width": 0.38,
+        "height": 0.38
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [
+    {
+      "id": "audio-t0-s00",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s00",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s00",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s00",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s01",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 90,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s01",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 90,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s01",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 90,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s01",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 90,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s02",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 180,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s02",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 180,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s02",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 180,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s02",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 180,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s03",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 270,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s03",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 270,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s03",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 270,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s03",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 270,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s04",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 360,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s04",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 360,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s04",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 360,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s04",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 360,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s05",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 450,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s05",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 450,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s05",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 450,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s05",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 450,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s06",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 540,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s06",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 540,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s06",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 540,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s06",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 540,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s07",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 630,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s07",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 630,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s07",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 630,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s07",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 630,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s08",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 720,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s08",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 720,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s08",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 720,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s08",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 720,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s09",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 810,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s09",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 810,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s09",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 810,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s09",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 810,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s10",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 900,
+      "sourceStartFrame": 300,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s10",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 900,
+      "sourceStartFrame": 300,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s10",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 900,
+      "sourceStartFrame": 300,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s10",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 900,
+      "sourceStartFrame": 300,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s11",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 990,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s11",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 990,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s11",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 990,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s11",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 990,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s12",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1080,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s12",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1080,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s12",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1080,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s12",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1080,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s13",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1170,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s13",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1170,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s13",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1170,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s13",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1170,
+      "sourceStartFrame": 90,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s14",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1260,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s14",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1260,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s14",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1260,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s14",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1260,
+      "sourceStartFrame": 180,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s15",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1350,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s15",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1350,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s15",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1350,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s15",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1350,
+      "sourceStartFrame": 270,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s16",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1440,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s16",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1440,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s16",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1440,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s16",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1440,
+      "sourceStartFrame": 360,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s17",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1530,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s17",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1530,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s17",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1530,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s17",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1530,
+      "sourceStartFrame": 450,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s18",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1620,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s18",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1620,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s18",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1620,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s18",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1620,
+      "sourceStartFrame": 0,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t0-s19",
+      "assetID": "audio1",
+      "track": 0,
+      "startFrame": 1710,
+      "sourceStartFrame": 510,
+      "durationFrames": 90,
+      "gain": 1,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t1-s19",
+      "assetID": "audio2",
+      "track": 1,
+      "startFrame": 1710,
+      "sourceStartFrame": 510,
+      "durationFrames": 90,
+      "gain": 0.8,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t2-s19",
+      "assetID": "audio3",
+      "track": 2,
+      "startFrame": 1710,
+      "sourceStartFrame": 510,
+      "durationFrames": 90,
+      "gain": 0.6,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "audio-t3-s19",
+      "assetID": "audio4",
+      "track": 3,
+      "startFrame": 1710,
+      "sourceStartFrame": 510,
+      "durationFrames": 90,
+      "gain": 0.4,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    }
+  ],
+  "subtitles": [
+    {
+      "id": "sub-001",
+      "startFrame": 15,
+      "endFrame": 75,
+      "text": "字幕 001｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-002",
+      "startFrame": 105,
+      "endFrame": 165,
+      "text": "字幕 002｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-003",
+      "startFrame": 195,
+      "endFrame": 255,
+      "text": "字幕 003｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-004",
+      "startFrame": 285,
+      "endFrame": 345,
+      "text": "字幕 004｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-005",
+      "startFrame": 375,
+      "endFrame": 435,
+      "text": "字幕 005｜独立剪辑测试\nSecond line / 5",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-006",
+      "startFrame": 465,
+      "endFrame": 525,
+      "text": "字幕 006｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-007",
+      "startFrame": 555,
+      "endFrame": 615,
+      "text": "字幕 007｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-008",
+      "startFrame": 645,
+      "endFrame": 705,
+      "text": "字幕 008｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-009",
+      "startFrame": 735,
+      "endFrame": 795,
+      "text": "字幕 009｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-010",
+      "startFrame": 825,
+      "endFrame": 885,
+      "text": "字幕 010｜独立剪辑测试\nSecond line / 10",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-011",
+      "startFrame": 915,
+      "endFrame": 975,
+      "text": "字幕 011｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-012",
+      "startFrame": 1005,
+      "endFrame": 1065,
+      "text": "字幕 012｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-013",
+      "startFrame": 1095,
+      "endFrame": 1155,
+      "text": "字幕 013｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-014",
+      "startFrame": 1185,
+      "endFrame": 1245,
+      "text": "字幕 014｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-015",
+      "startFrame": 1275,
+      "endFrame": 1335,
+      "text": "字幕 015｜独立剪辑测试\nSecond line / 15",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-016",
+      "startFrame": 1365,
+      "endFrame": 1425,
+      "text": "字幕 016｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-017",
+      "startFrame": 1455,
+      "endFrame": 1515,
+      "text": "字幕 017｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-018",
+      "startFrame": 1545,
+      "endFrame": 1605,
+      "text": "字幕 018｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-019",
+      "startFrame": 1635,
+      "endFrame": 1695,
+      "text": "字幕 019｜独立剪辑测试",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    },
+    {
+      "id": "sub-020",
+      "startFrame": 1725,
+      "endFrame": 1785,
+      "text": "字幕 020｜独立剪辑测试\nSecond line / 20",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "name": "F3 source range and fades",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 300,
+  "assets": [
+    {
+      "id": "video1",
+      "path": "media/source01.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "video2",
+      "path": "media/source02.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "video3",
+      "path": "media/source03.mp4",
+      "kind": "video"
+    },
+    {
+      "id": "audio1",
+      "path": "media/tone01.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio2",
+      "path": "media/tone02.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio3",
+      "path": "media/tone03.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "audio4",
+      "path": "media/tone04.wav",
+      "kind": "audio"
+    },
+    {
+      "id": "chartPNG",
+      "path": "media/srgb-chart.png",
+      "kind": "image"
+    },
+    {
+      "id": "chartJPEG",
+      "path": "media/srgb-chart.jpg",
+      "kind": "image"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "trim-probe",
+      "assetID": "video1",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 150,
+      "durationFrames": 300,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [
+    {
+      "id": "fade-probe",
+      "assetID": "audio2",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 150,
+      "durationFrames": 300,
+      "gain": 0.5,
+      "fadeInFrames": 30,
+      "fadeOutFrames": 30
+    }
+  ],
+  "subtitles": [
+    {
+      "id": "trim-label",
+      "startFrame": 30,
+      "endFrame": 270,
+      "text": "截取源视频 5–15 秒｜音量 50%｜淡入淡出 1 秒",
+      "fontSize": 48.0,
+      "colorHex": "#FFFFFF"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "name": "F6 gaps silence rotation and half opacity",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 180,
+  "assets": [
+    {
+      "id": "square",
+      "path": "media/offset-white-square.png",
+      "kind": "image"
+    },
+    {
+      "id": "tone",
+      "path": "media/tone03.wav",
+      "kind": "audio"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "opaque-original",
+      "assetID": "square",
+      "track": 0,
+      "startFrame": 30,
+      "sourceStartFrame": 0,
+      "durationFrames": 30,
+      "rect": {
+        "x": 0.25,
+        "y": 0.25,
+        "width": 0.5,
+        "height": 0.5
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    },
+    {
+      "id": "rotate90-half-alpha",
+      "assetID": "square",
+      "track": 0,
+      "startFrame": 90,
+      "sourceStartFrame": 0,
+      "durationFrames": 30,
+      "rect": {
+        "x": 0.25,
+        "y": 0.25,
+        "width": 0.5,
+        "height": 0.5
+      },
+      "opacity": 0.5,
+      "rotationDegrees": 90
+    }
+  ],
+  "audioClips": [
+    {
+      "id": "sound-0",
+      "assetID": "tone",
+      "track": 0,
+      "startFrame": 30,
+      "sourceStartFrame": 0,
+      "durationFrames": 30,
+      "gain": 0.5,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    },
+    {
+      "id": "sound-1",
+      "assetID": "tone",
+      "track": 0,
+      "startFrame": 90,
+      "sourceStartFrame": 0,
+      "durationFrames": 30,
+      "gain": 0.5,
+      "fadeInFrames": 0,
+      "fadeOutFrames": 0
+    }
+  ],
+  "subtitles": []
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "name": "reject-hdr-hevc10.mp4",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 30,
+  "assets": [
+    {
+      "id": "reject",
+      "path": "media/reject-hdr-hevc10.mp4",
+      "kind": "video"
+    }
+  ],
+  "videoClips": [
+    {
+      "id": "reject-clip",
+      "assetID": "reject",
+      "track": 0,
+      "startFrame": 0,
+      "sourceStartFrame": 0,
+      "durationFrames": 30,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "opacity": 1.0,
+      "rotationDegrees": 0
+    }
+  ],
+  "audioClips": [],
+  "subtitles": []
+}

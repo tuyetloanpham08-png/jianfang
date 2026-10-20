@@ -1,0 +1,38 @@
+name: macOS build and tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          sw_vers
+          xcodebuild -version
+          swift --version
+      - name: Fixture-generation tools
+        run: |
+          command -v python3 >/dev/null || brew install python
+          command -v ffmpeg >/dev/null || brew install ffmpeg
+          python3 --version
+          ffmpeg -version
+      - name: Generate synthetic test media
+        run: |
+          python3 scripts/generate_fixtures.py
+          python3 scripts/make_step7_fixtures.py
+      - name: Release build
+        run: swift build -c release --product IndependentEditor
+      - name: Core regression checks
+        run: swift run CoreChecks
+      - name: XCTest
+        run: swift test
