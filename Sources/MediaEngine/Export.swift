@@ -21,20 +21,21 @@ extension TimelineEngine {
     /// Export uses the very same AVVideoComposition and AVAudioMix as preview.
     /// Writes a sibling temporary file and publishes only a completed result.
     @discardableResult
-    public static func export(_ compiled: CompiledTimeline, to url: URL, progress: @escaping (Double) -> Void) async throws -> ExportReport {
-        do { return try await writeExport(compiled, to: url, progress: progress) }
-        catch { throw MediaEngineError.describing(error, "导出失败：\(url.lastPathComponent)。未完成的文件已清理，已有成片没有改动；请检查磁盘空间和目标文件夹的写入权限后重试") }
+    /// `journal`: folder for ExportJournal entries, so a crash mid-export leaves a trail the next
+    /// start sweeps (nil: not recorded).
+    public static func export(_ compiled: CompiledTimeline, to url: URL, journal: URL? = nil, progress: @escaping (Double) -> Void) async throws -> ExportReport {
+        do { return try await writeExport(compiled, to: url, journal: journal, progress: progress) }
+        catch { throw MediaEngineError.describing(error, "导出失败：\(url.lastPathComponent)。已有成片没有改动；临时文件将在可访问时尝试清理。请检查磁盘空间和目标文件夹的写入权限后重试") }
     }
 
-    private static func writeExport(_ compiled: CompiledTimeline, to url: URL, progress: @escaping (Double) -> Void) async throws -> ExportReport {
+    private static func writeExport(_ compiled: CompiledTimeline, to url: URL, journal: URL?, progress: @escaping (Double) -> Void) async throws -> ExportReport {
         guard !FileManager.default.fileExists(atPath: url.path) else { throw MediaEngineError.invalid("导出目标已存在，请选择新文件名") }
         let directory = url.deletingLastPathComponent()
         guard FileManager.default.fileExists(atPath: directory.path) else { throw MediaEngineError.invalid("导出目录不存在") }
-        // Partial output lives in a system temporary area on the same volume, not beside the user's files.
-        let staging = AssetStore.stagingDirectory(near: directory)
-        defer { if let staging { try? FileManager.default.removeItem(at: staging) } }
-        let temporary = staging?.appendingPathComponent("\(UUID().uuidString).partial.mp4")
-            ?? directory.appendingPathComponent(".\(url.deletingPathExtension().lastPathComponent).\(UUID().uuidString).partial.mp4")
+        // Exclusive, marked staging on the destination volume. Failed cleanup retains its journal.
+        let staging = try ExportJournal.prepare(near: directory, journal: journal)
+        let temporary = staging.temporary
+        defer { _ = ExportJournal.finish(staging) }
         let reader = try AVAssetReader(asset: compiled.composition)
         reader.timeRange = CMTimeRange(start: .zero, duration: compiled.duration)
         let videoTracks = try await compiled.composition.loadTracks(withMediaType: .video)
@@ -108,7 +109,6 @@ extension TimelineEngine {
         } catch {
             reader.cancelReading()
             if writer.status != .completed { writer.cancelWriting() }
-            try? FileManager.default.removeItem(at: temporary)
             throw error
         }
     }

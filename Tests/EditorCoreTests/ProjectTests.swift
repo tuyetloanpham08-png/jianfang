@@ -724,6 +724,167 @@ extension EditorProject {
             try expect(folder(RecoveryStore.coreBundleID,["JF_SUPPORT_DIR":"/tmp/jf-check"])=="/tmp/jf-check","Override ignored")
             try expect(folder(RecoveryStore.coreBundleID,["JF_SUPPORT_DIR":"relative"])==support+"io.github.jianfang.editor","Relative override accepted")
         }
+        /// A process ID nothing is using right now, standing in for a crashed export.
+        func deadPID()throws->Int32{try expectValue((Int32(90_000)...Int32(99_990)).first{!ExportJournal.processIsRunning($0)},"No free process ID")}
+        try check("owned crashed exports and writer-only remnants are swept; active and legacy records stay"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let dead=try deadPID(),me=ProcessInfo.processInfo.processIdentifier
+            let crashed=try ExportJournal.prepare(near:root,journal:journal,pid:dead,useSystemStaging:false)
+            try Data(count:1000).write(to:crashed.temporary)
+            try Data(count:500).write(to:URL(fileURLWithPath:crashed.temporary.path+".sb-1"))
+            let writerOnly=try ExportJournal.prepare(near:root,journal:journal,pid:dead,useSystemStaging:false)
+            try Data(count:2300).write(to:URL(fileURLWithPath:writerOnly.temporary.path+".sb-1"))
+            let running=try ExportJournal.prepare(near:root,journal:journal,pid:me,useSystemStaging:false)
+            try Data(count:100).write(to:running.temporary)
+            let legacy=root.appendingPathComponent(".legacy.partial.mp4");try Data(count:700).write(to:legacy)
+            let old:[String:Any] = ["pid":dead,"staging":legacy.absoluteString,"started":0]
+            try JSONSerialization.data(withJSONObject:old).write(to:journal.appendingPathComponent("legacy.json"))
+            try Data("not json".utf8).write(to:journal.appendingPathComponent("broken.json"))
+            let report=ExportJournal.sweep(journal)
+            try expect(!fm.fileExists(atPath:crashed.entry.staging.path) && !fm.fileExists(atPath:writerOnly.entry.staging.path),"Owned remnants survived, including the writer-only remnant")
+            try expect(report.bytes==3800,"Only successfully removed payload bytes should be reported: \(report.bytes)")
+            try expect(fm.fileExists(atPath:running.temporary.path) && fm.fileExists(atPath:legacy.path),"Active or legacy files were touched")
+            try expect(report.kept==3 && (try fm.contentsOfDirectory(atPath:journal.path)).count==3,"Active, legacy and malformed records must be retained")
+        }
+        try check("system replacement staging is cleaned without read-opening its shared parent"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:root,journal:journal)
+            try Data(count:128).write(to:work.temporary)
+            let report=ExportJournal.finish(work)
+            try expect(report.kept==0 && report.bytes==128 && !fm.fileExists(atPath:work.entry.staging.path) && !fm.fileExists(atPath:work.journalFile!.path),"System replacement staging was not cleaned: \(work.entry.staging.path)")
+        }
+        try check("only valid task-specific AppleDouble sidecars are removed"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:root,journal:journal,useSystemStaging:false)
+            try Data(count:128).write(to:work.temporary)
+            let sidecar=work.entry.staging.appendingPathComponent("._"+work.temporary.lastPathComponent)
+            try Data("unrelated user data".utf8).write(to:sidecar)
+            try expect(ExportJournal.finish(work).kept==1 && fm.fileExists(atPath:sidecar.path),"Invalid sidecar was treated as disposable metadata")
+            let valid=Data([0x00,0x05,0x16,0x07,0x00,0x02,0x00,0x00])+Data(count:18)
+            try valid.write(to:sidecar)
+            try valid.write(to:work.entry.staging.appendingPathComponent("._.jianfang-work-owner.json"))
+            let unknown=work.entry.staging.appendingPathComponent("._unrelated.mp4");try valid.write(to:unknown)
+            try expect(ExportJournal.finish(work).kept==1 && fm.fileExists(atPath:unknown.path),"Unrelated valid metadata was removed")
+            try fm.removeItem(at:unknown)
+            try expect(ExportJournal.finish(work).kept==0 && !fm.fileExists(atPath:work.entry.staging.path),"Valid owned metadata prevented cleanup")
+        }
+        try check("failed cleanup retains its journal and reports no space freed"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:root,journal:journal,pid:try deadPID(),useSystemStaging:false)
+            try Data(count:1234).write(to:work.temporary)
+            // Unknown content forces a conservative refusal even when run by a privileged test user.
+            let keep=work.entry.staging.appendingPathComponent("keep-user-file.txt");try Data("keep".utf8).write(to:keep)
+            let refused=ExportJournal.finish(work)
+            try expect(refused.kept==1 && refused.bytes==0 && refused.removed.isEmpty,"Refused cleanup claimed success")
+            try expect(fm.fileExists(atPath:work.journalFile!.path) && fm.fileExists(atPath:work.temporary.path) && fm.fileExists(atPath:keep.path),"Refused cleanup discarded data or its journal")
+            try fm.removeItem(at:keep)
+            if getuid() != 0 {
+                try fm.setAttributes([.posixPermissions:0o500],ofItemAtPath:work.entry.staging.path)
+                let failed=ExportJournal.finish(work)
+                try fm.setAttributes([.posixPermissions:0o700],ofItemAtPath:work.entry.staging.path)
+                try expect(failed.kept==1 && failed.bytes==0 && failed.removed.isEmpty && fm.fileExists(atPath:work.journalFile!.path),"A failed unlink lost its journal or claimed freed bytes")
+            }
+            let retry=ExportJournal.finish(work)
+            try expect(retry.kept==0 && retry.bytes==1234 && !fm.fileExists(atPath:work.journalFile!.path),"Cleanup could not retry after the obstruction was removed")
+        }
+        try check("unavailable staging parent retains the journal until the same location returns"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal"),out=root.appendingPathComponent("out"),parked=root.appendingPathComponent("temporarily-away")
+            try fm.createDirectory(at:out,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:out,journal:journal,pid:try deadPID(),useSystemStaging:false)
+            try Data(count:32).write(to:work.temporary);try fm.moveItem(at:out,to:parked)
+            let missing=ExportJournal.finish(work)
+            try expect(missing.kept==1 && fm.fileExists(atPath:work.journalFile!.path),"Unavailable volume/directory lost its cleanup record")
+            try fm.moveItem(at:parked,to:out)
+            let returned=ExportJournal.sweep(journal)
+            try expect(returned.kept==0 && returned.bytes==32 && !fm.fileExists(atPath:work.journalFile!.path),"Cleanup failed after the recorded directory returned")
+        }
+        try check("cleanup rejects symbolic links in the parent path and payloads"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal"),out=root.appendingPathComponent("out"),moved=root.appendingPathComponent("moved")
+            try fm.createDirectory(at:out,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:out,journal:journal,pid:try deadPID(),useSystemStaging:false)
+            try Data(count:64).write(to:work.temporary);try fm.moveItem(at:out,to:moved);try fm.createSymbolicLink(at:out,withDestinationURL:moved)
+            let linked=ExportJournal.sweep(journal)
+            try expect(linked.kept==1 && linked.removed.isEmpty && fm.fileExists(atPath:work.temporary.path),"Cleanup followed a replaced parent symlink")
+            try fm.removeItem(at:out);try fm.moveItem(at:moved,to:out)
+            let victim=root.appendingPathComponent("user-video.mp4");try Data(count:80).write(to:victim)
+            let sibling=URL(fileURLWithPath:work.temporary.path+".sb-link");try fm.createSymbolicLink(at:sibling,withDestinationURL:victim)
+            let payload=ExportJournal.sweep(journal)
+            try expect(payload.kept==1 && payload.bytes==0 && fm.fileExists(atPath:victim.path) && fm.fileExists(atPath:work.temporary.path),"Cleanup accepted a payload symlink")
+            try fm.removeItem(at:sibling);_=ExportJournal.finish(work)
+        }
+        try check("a copied marker does not authorize deleting a replacement directory"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:root,journal:journal,pid:try deadPID(),useSystemStaging:false)
+            let original=root.appendingPathComponent("original");try fm.moveItem(at:work.entry.staging,to:original)
+            try fm.createDirectory(at:work.entry.staging,withIntermediateDirectories:false)
+            try fm.copyItem(at:original.appendingPathComponent(".jianfang-work-owner.json"),to:work.entry.staging.appendingPathComponent(".jianfang-work-owner.json"))
+            try Data(count:512).write(to:work.temporary)
+            let report=ExportJournal.sweep(journal)
+            try expect(report.kept==1 && report.bytes==0 && fm.fileExists(atPath:work.temporary.path),"Copied marker bypassed directory identity validation")
+        }
+        try check("a mismatched recorded volume cannot authorize cleanup"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=root.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let work=try ExportJournal.prepare(near:root,journal:journal,pid:try deadPID(),useSystemStaging:false)
+            try Data(count:128).write(to:work.temporary)
+            var json=try JSONSerialization.jsonObject(with:Data(contentsOf:work.journalFile!)) as! [String:Any]
+            var parent=json["parentIdentity"] as! [String:Any];parent["volumeUUID"]=UUID().uuidString;json["parentIdentity"]=parent
+            let changed=try JSONSerialization.data(withJSONObject:json)
+            try changed.write(to:work.journalFile!);try changed.write(to:work.entry.staging.appendingPathComponent(".jianfang-work-owner.json"))
+            let report=ExportJournal.sweep(journal)
+            try expect(report.kept==1 && report.bytes==0 && fm.fileExists(atPath:work.temporary.path),"Volume identity mismatch was ignored")
+        }
+        try check("only marked carrier folders of ended processes are removed; legacy and active folders stay"){
+            let fm=FileManager.default,root=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            try fm.createDirectory(at:root,withIntermediateDirectories:true);defer{try? fm.removeItem(at:root)}
+            let dead=try deadPID(),me=ProcessInfo.processInfo.processIdentifier
+            let ended=try ExportJournal.createCarrierFolder(in:root,pid:dead),active=try ExportJournal.createCarrierFolder(in:root,pid:me)
+            try Data(count:64).write(to:ended.appendingPathComponent("carrier-\(UUID().uuidString).mp4"))
+            let legacy=root.appendingPathComponent("IndependentEditor-\(dead)");try fm.createDirectory(at:legacy,withIntermediateDirectories:false)
+            let report=TimelineEngine.sweepStaleCarrierFolders(in:root)
+            try expect(report==1 && !fm.fileExists(atPath:ended.path),"Marked ended carrier was not cleaned")
+            try expect(fm.fileExists(atPath:active.path) && fm.fileExists(atPath:legacy.path),"Active or unmarked carrier was removed")
+            // Enumerating a root through a symlink must work, but a symlink posing as a child
+            // carrier folder must never authorize deleting its otherwise valid destination.
+            let alias=root.appendingPathComponent("root-alias");try fm.createSymbolicLink(at:alias,withDestinationURL:root)
+            let aliased=try ExportJournal.createCarrierFolder(in:alias,pid:dead)
+            try expect(TimelineEngine.sweepStaleCarrierFolders(in:alias)==1 && !fm.fileExists(atPath:aliased.path),"Canonical root aliases prevented owned carrier cleanup")
+            let outside=root.appendingPathComponent("outside");try fm.createDirectory(at:outside,withIntermediateDirectories:false)
+            let protected=try ExportJournal.createCarrierFolder(in:outside,pid:dead)
+            let childLink=root.appendingPathComponent("IndependentEditor-linked");try fm.createSymbolicLink(at:childLink,withDestinationURL:protected)
+            try expect(TimelineEngine.sweepStaleCarrierFolders(in:root)==0 && fm.fileExists(atPath:protected.path),"A child symlink authorized cleanup outside the enumerated root")
+        }
+        try await checkAsync("a 10-minute export cancelled halfway leaves no file, no staging and no journal entry"){
+            let fm=FileManager.default,dir=fm.temporaryDirectory.appendingPathComponent(UUID().uuidString),journal=dir.appendingPathComponent("export-journal")
+            try fm.createDirectory(at:dir,withIntermediateDirectories:true);defer{try? fm.removeItem(at:dir)}
+            let f2=try media("fixtures/F2.json"),compiled=try await TimelineEngine.compile(project:ProjectStore.load(f2),baseURL:f2.deletingLastPathComponent())
+            final class Percent:Sendable{let value=Atomic<Int>(0);let finished=Atomic<Bool>(false)}
+            let percent=Percent(),target=dir.appendingPathComponent("F2.mp4"),began=Date()
+            let task=Task.detached{defer{percent.finished.store(true,ordering:.releasing)};return try await TimelineEngine.export(compiled,to:target,journal:journal){p in percent.value.store(Int(p*100),ordering:.relaxed)}}
+            while percent.value.load(ordering:.relaxed)<50 && !percent.finished.load(ordering:.acquiring) && Date().timeIntervalSince(began)<300{try await Task.sleep(nanoseconds:50_000_000)}
+            guard percent.value.load(ordering:.relaxed)>=50 else{
+                if percent.finished.load(ordering:.acquiring){_=try await task.value;throw ProjectError.invalid("Long export ended before the requested cancellation point")}
+                let reached=percent.value.load(ordering:.relaxed);task.cancel();_=try? await task.value
+                throw ProjectError.invalid("Long export reached only \(reached) percent within five minutes")
+            }
+            let entries=try fm.contentsOfDirectory(at:journal,includingPropertiesForKeys:nil)
+            try expect(entries.count==1,"Running export not recorded in the journal")
+            let staging=try JSONDecoder().decode(ExportJournal.Entry.self,from:Data(contentsOf:entries[0])).staging
+            try expect(fm.fileExists(atPath:staging.path),"Journal points at a staging area that does not exist")
+            let reached=Date().timeIntervalSince(began);task.cancel();let cancelAt=Date()
+            var cancelled=false;do{_=try await task.value}catch is CancellationError{cancelled=true}
+            let took=Date().timeIntervalSince(cancelAt)
+            try expect(cancelled,"Halfway cancel did not end as a cancellation")
+            try expect(!fm.fileExists(atPath:target.path) && !fm.fileExists(atPath:staging.path),"Cancelled long export left a file or its staging area")
+            try expect((try fm.contentsOfDirectory(atPath:journal.path)).isEmpty,"Journal entry left after a clean cancel")
+            try expect(took<5,"Halfway cancel took \(took) s")
+            print(String(format:"  F2 (10 min) reached 50%% after %.1fs; cancel finished in %.3fs",reached,took))
+        }
         print("CORE CHECKS: \(passed) PASS, 0 FAIL")
     }
 }

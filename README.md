@@ -2,7 +2,7 @@
 
 一个用 AI 做出来的本地 macOS 视频剪辑软件：不登录、不订阅，断网可用，素材不上传。
 
-剪坊提供素材导入、时间线剪辑、视频预览、中文字幕、配乐混音、工程保存与 MP4 导出。当前为 **0.2.1 公开预览版**。
+剪坊提供素材导入、时间线剪辑、视频预览、中文字幕、配乐混音、工程保存与 MP4 导出。当前为 **0.2.2 公开预览版**。
 
 [下载最新版 App](https://github.com/tuyetloanpham08-png/jianfang/releases/latest)
 
@@ -17,6 +17,12 @@
 
 支持 SDR H.264 MP4/MOV、PNG/JPEG、WAV/AAC。HDR、可变帧率素材、自动语音识别、变速和转场不在当前支持范围内。App 只依赖 macOS 系统框架，不需要其他视频剪辑软件或 FFmpeg。
 
+## 本次更新
+
+0.2.2 改善导出中断后的临时文件管理：记录本次导出的暂存位置，下次启动尝试清理已结束任务的残留；导出仍在运行、外置磁盘不可访问或文件归属无法验证时保留记录，不贸然删除。
+
+中断后仍需从头重新导出，**不支持断点续出**。这次更新不包含自动字幕、工程与 SRT 联动交付，或对旧版本未登记残留的全面清理。
+
 ## 系统要求
 
 - **Apple Silicon Mac，macOS 26 或更高版本。**
@@ -25,7 +31,7 @@
 
 ## 三步开始使用
 
-1. 打开 [Releases](https://github.com/tuyetloanpham08-png/jianfang/releases)，下载 `Jianfang-0.2.1-macOS.zip`，不要选源码压缩包。
+1. 打开 [Releases](https://github.com/tuyetloanpham08-png/jianfang/releases)，下载 `Jianfang-0.2.2-macOS.zip`，不要选源码压缩包。
 2. 解压 ZIP，把 **剪坊.app** 拖进“应用程序”文件夹。
 3. 打开剪坊，选择“新建横版工程”“新建竖版工程”或“打开工程”。
 

@@ -40,7 +40,7 @@ extension EditorController {
         w.standardWindowButton(.miniaturizeButton)?.isHidden=true;w.standardWindowButton(.zoomButton)?.isHidden=true
         let mark=AppMarkView();mark.widthAnchor.constraint(equalToConstant:88).isActive=true;mark.heightAnchor.constraint(equalToConstant:88).isActive=true
         let name=NSTextField(labelWithString:"剪坊");name.font = .systemFont(ofSize:28,weight:.bold)
-        let version=secondaryLabel("版本 \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.1")",size:12)
+        let version=secondaryLabel("版本 \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.2.2")",size:12)
         let actions=NSStackView(views:[
             welcomeAction("新建横版工程","1920×1080 · 30 fps","rectangle",#selector(welcomeNewLandscape)),
             welcomeAction("新建竖版工程","1080×1920 · 30 fps","rectangle.portrait",#selector(welcomeNewPortrait)),

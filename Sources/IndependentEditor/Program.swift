@@ -22,6 +22,14 @@ import MediaEngine
                 guard args.count==2 else{throw ProjectError.invalid("app-icon 需要输出 .iconset 目录")}
                 try AppMarkView.writeIconSet(to:URL(fileURLWithPath:args[1]).standardizedFileURL);print("APP_ICONSET \(args[1])");return
             }
+            // Same per-build folder the app uses (JF_SUPPORT_DIR overrides), so the CLI shares its export journal.
+            let journal=RecoveryStore.supportFolder(bundleID:Bundle.main.bundleIdentifier,environment:ProcessInfo.processInfo.environment,home:URL(fileURLWithPath:NSHomeDirectory())).appendingPathComponent("export-journal",isDirectory:true)
+            if args.first=="sweep-exports"{
+                // What the app does at launch: remove partial exports left by crashed or killed runs.
+                let report=ExportJournal.sweep(journal);let carriers=TimelineEngine.sweepStaleCarrierFolders()
+                for u in report.removed{print("REMOVED \(u.path)")}
+                print("SWEPT removed=\(report.removed.count) bytes=\(report.bytes) kept=\(report.kept) carrier_folders=\(carriers)");return
+            }
             guard args.count>=2 else {throw ProjectError.invalid("用法: IndependentEditor validate|export|frame|roundtrip|preview-probe 工程.json [输出路径/帧号]")}
             let url=URL(fileURLWithPath:args[1]).standardizedFileURL
             let project=try ProjectStore.load(url), base=url.deletingLastPathComponent()
@@ -52,7 +60,7 @@ import MediaEngine
                 let start=Date();let verified=try await Task.detached{try AssetStore.fingerprinted(project,baseURL:base)}.value;let compiled=try await TimelineEngine.compile(project:verified,baseURL:base)
                 print("COMPILED seconds=\(Date().timeIntervalSince(start))");fflush(stdout)
                 let meter=ProgressMeter()
-                let report=try await TimelineEngine.export(compiled,to:URL(fileURLWithPath:args[2])) {p in meter.update(p)}
+                let report=try await TimelineEngine.export(compiled,to:URL(fileURLWithPath:args[2]),journal:journal) {p in meter.update(p)}
                 print("EXPORTED elapsed_seconds=\(Date().timeIntervalSince(start)) output=\(args[2])")
                 print(String(format:"AUDIO_MIX peak_dbfs=%.2f full_scale_samples=%d",report.peakDBFS,report.fullScaleSamples))
                 if let warning=report.clippingWarning{print("WARNING: \(warning)")}

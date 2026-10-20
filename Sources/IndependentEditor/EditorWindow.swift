@@ -45,7 +45,7 @@ extension NSToolbarItem.Identifier {
 
     func show(){
         NSApp.setActivationPolicy(.regular);NSApp.delegate=self
-        buildWindow();buildMenu();showWelcome()
+        buildWindow();buildMenu();showWelcome();sweepInterruptedWork()
     }
     /// Builds the main window (not yet shown). Follows the system light/dark appearance.
     func buildWindow(){
@@ -346,6 +346,12 @@ extension NSToolbarItem.Identifier {
     }
     func persistRecovery(){do{try RecoveryStore.write(project,baseURL:baseURL,projectURL:projectURL,to:recoveryURL,unsaved:dirty);saveLabel.stringValue=dirty ? "已自动保存恢复副本":"已保存"}catch{saveLabel.stringValue="未保存：\(error.localizedDescription)";showError(error)}}
     var recoveryHistoryURL:URL{recoveryURL.deletingLastPathComponent().appendingPathComponent("history",isDirectory:true)}
+    var exportJournalURL:URL{recoveryURL.deletingLastPathComponent().appendingPathComponent("export-journal",isDirectory:true)}
+    /// Removes what crashed or force-quit runs left behind: partial exports (ExportJournal) and old
+    /// compositor clock folders. Runs in the background at launch; says so only when it freed space.
+    func sweepInterruptedWork(){let folder=exportJournalURL
+        Task{let report=await Task.detached(priority:.utility){()->ExportJournal.SweepReport in let r=ExportJournal.sweep(folder);_=TimelineEngine.sweepStaleCarrierFolders();return r}.value
+            guard report.bytes>0 else{return};statusLabel.stringValue="已清理上次中断导出留下的临时文件（"+ByteCountFormatter.string(fromByteCount:report.bytes,countStyle:.file)+"）"}}
     func preserveRecovery()throws{guard dirty else{return};let folder=recoveryHistoryURL;try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true);try RecoveryStore.write(project,baseURL:baseURL,projectURL:projectURL,to:folder.appendingPathComponent(UUID().uuidString+".json"))}
     /// History copies are never deleted automatically; this shows them in Finder.
     @objc func openRecoveryHistory(){do{try FileManager.default.createDirectory(at:recoveryHistoryURL,withIntermediateDirectories:true);NSWorkspace.shared.activateFileViewerSelecting([recoveryHistoryURL])}catch{showError(error)}}
@@ -435,7 +441,7 @@ extension NSToolbarItem.Identifier {
     @objc func exportVideo(){guard !exporting,ensureEditable() else{return};let p=NSSavePanel();p.allowedContentTypes=[.mpeg4Movie];p.nameFieldStringValue=project.name+".mp4";guard p.runModal() == .OK,let url=p.url else{return};guard !FileManager.default.fileExists(atPath:url.path) else{showError(ProjectError.invalid("请用新文件名导出，已有成片不会被覆盖"));return};let snapshot=project,root=baseURL;exporting=true;statusLabel.stringValue="正在导出冻结工程…";progress.doubleValue=0;exportGeneration+=1;let generation=exportGeneration
         // Cancellation now reaches the fingerprint stage; progress updates that arrive after this
         // export finished (or from an older export) are dropped, so 100% never falls back to 99%.
-        exportTask=Task{[self] in do{let verified=try await AssetStore.fingerprintedInBackground(snapshot,baseURL:root);let built=try await TimelineEngine.compile(project:verified,baseURL:root);try Task.checkCancellation();let mix=try await TimelineEngine.export(built,to:url){[weak self] p in Task{@MainActor in guard let self,self.exporting,self.exportGeneration==generation else{return};self.progress.doubleValue=p*100}};exporting=false;statusLabel.stringValue="导出完成：\(url.lastPathComponent)"+(mix.clippingWarning == nil ? "":"（混音有削波，见提示）");progress.doubleValue=100;if let warning=mix.clippingWarning{report("导出完成，但混音有削波",[warning])}}catch{exporting=false;if error is CancellationError{statusLabel.stringValue="已取消导出，原工程与已有成片保持不变";progress.doubleValue=0}else{showError(error)}}}
+        exportTask=Task{[self] in do{let verified=try await AssetStore.fingerprintedInBackground(snapshot,baseURL:root);let built=try await TimelineEngine.compile(project:verified,baseURL:root);try Task.checkCancellation();let mix=try await TimelineEngine.export(built,to:url,journal:exportJournalURL){[weak self] p in Task{@MainActor in guard let self,self.exporting,self.exportGeneration==generation else{return};self.progress.doubleValue=p*100}};exporting=false;statusLabel.stringValue="导出完成：\(url.lastPathComponent)"+(mix.clippingWarning == nil ? "":"（混音有削波，见提示）");progress.doubleValue=100;if let warning=mix.clippingWarning{report("导出完成，但混音有削波",[warning])}}catch{exporting=false;if error is CancellationError{statusLabel.stringValue="已取消导出，原工程与已有成片保持不变";progress.doubleValue=0}else{showError(error)}}}
     }
     @objc func cancelExport(){exportTask?.cancel()}
     @objc func togglePlayback(){guard compiled != nil else{return};if player.rate==0{if player.currentTime().seconds>=Double(project.durationFrames-1)/30{seek(0)};player.play()}else{player.pause()}}
